@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_practice/next_page.dart';
 
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -22,15 +21,19 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      initialRoute: '/',
+      routes: {
+        // When navigating to the "/" route, build the FirstScreen widget.
+        '/': (context) => MyHomePage(),
+        // When navigating to the "/second" route, build the SecondScreen widget.
+        '/next': (context) => NextPage(),
+      },
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
-
-
 
   final String title;
 
@@ -43,28 +46,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
-
       _counter++;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-         title: Text('widgetの練習'),
+        title: Text('widgetの練習'),
       ),
       body: Center(
         child: RaisedButton(
           child: Text('次へ'),
-          onPressed: (){
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => NextPage(),
-              ),
-            ); //ここを押したら反応するコードをかく
+          onPressed: () {
+            Navigator.pushNamed(context, '/next'); //ここを押したら反応するコードをかく
             //画面遷移のコード
           },
         ),
